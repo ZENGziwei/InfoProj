@@ -1,9 +1,27 @@
 package userModel;
 
+import org.jdom2.Element;
+
 public class Administrator extends User{
-	private int administratorId;
+	protected int administratorId;
 	
 	public boolean Addmin(UserDB userDB, String adminLogin, String newAdminlogin,int adminID, String firstname, String surname, String pwd) {
+		  
+		Element admins = new Element("Administrators");
+		   Element admin = new Element("Administrator");
+		     Element login = new Element("login");
+		     login.setText("su");
+		     Element fname = new Element("firstname");
+		     fname.setText("su");
+		     Element sname = new Element("surname");
+		     sname.setText("su");
+		     Element pwd = new Element("pwd");
+		     pwd.setText("superUser");
+		     Element adminId = new Element("adminId");
+		     adminId.setText("0");
+		    admin.addContent(login);admin.addContent(fname);admin.addContent(sname);admin.addContent(pwd); admin.addContent(adminId); 
+		   admins.addContent(admin); 
+		  rootElt.addContent(admins);
 		return false;
 	}
 	

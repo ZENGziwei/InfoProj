@@ -42,7 +42,14 @@ public class UserDB {
 	public UserDB(String file){
 		//TODO Fonction à modifier
 		super();
-		Element rootElt = new Element("UsersDB");
+		Administrator adm = new Administrator();
+		adm.firstname = "su";
+		adm.surname = "su";
+		adm.login="su";
+		adm.pwd="superUser";
+		adm.administratorId = 0;
+		Administrators.add(adm);
+	   	  Element rootElt = new Element("UsersDB");
 		  document = new Document(rootElt);
 		  Element admins = new Element("Administrators");
 		   Element admin = new Element("Administrator");
@@ -59,13 +66,6 @@ public class UserDB {
 		    admin.addContent(login);admin.addContent(fname);admin.addContent(sname);admin.addContent(pwd); admin.addContent(adminId); 
 		   admins.addContent(admin); 
 		  rootElt.addContent(admins);
-		  
-		  try{
-			  XMLOutputter sortie =
-			                 new XMLOutputter(Format.getPrettyFormat());
-			  sortie.output(document, new FileOutputStream(file));
-			 }catch (java.io.IOException e){}
-	   
 		  this.saveDB();
 		this.setFile(file);
 	}
