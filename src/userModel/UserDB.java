@@ -214,4 +214,83 @@ public class UserDB {
 	    }
 	    return bool;
 	  }
+	
+	 public final boolean removeUser(String paramString1, String paramString2)
+	  {
+	    int i = 0;
+	    if (((a.get(paramString1) instanceof a)) && (a.containsKey(paramString2)))
+	    {
+	      if ((((paramString1 = (e)a.get(paramString2)) instanceof c)) && ((i = (paramString1 = (c)paramString1).b()) != -1)) {
+	        ((b)b.get(Integer.valueOf(i))).b(paramString1);
+	      }
+	      a.remove(paramString2);
+	      i = 1;
+	    }
+	    return i;
+	  }
+	 
+	 public final boolean addGroup(String paramString, int paramInt)
+	  {
+	    boolean bool = false;
+	    if (((a.get(paramString) instanceof a)) && (b.get(Integer.valueOf(paramInt)) == null))
+	    {
+	      a.get(paramString);
+	      paramString = paramInt;
+	      paramString = new b(paramString);
+	      b.put(Integer.valueOf(paramInt), paramString);
+	      bool = true;
+	    }
+	    return bool;
+	  }
+	 
+	 public final boolean removeGroup(String paramString, int paramInt)
+	  {
+	    int i = 0;
+	    boolean bool;
+	    if (((a.get(paramString) instanceof a)) && (b.containsKey(Integer.valueOf(paramInt))))
+	    {
+	      paramString = (paramString = b.get(Integer.valueOf(paramInt))).a).values().iterator();
+	      while (paramString.hasNext())
+	      {
+	        c localC;
+	        (localC = (c)paramString.next()).a(-1);
+	      }
+	      b.remove(Integer.valueOf(paramInt));
+	      bool = true;
+	    }
+	    return bool;
+	  }
+	 
+	 public final boolean associateStudToGroup(String paramString1, String paramString2, int paramInt)
+	  {
+	    boolean bool = false;
+	    if (((a.get(paramString1) instanceof a)) && (a.get(paramString2) != null) && (b.get(Integer.valueOf(paramInt)) != null) && ((a.get(paramString2) instanceof c)))
+	    {
+	      if (((c)a.get(paramString2)).b() != -1) {
+	        ((b)b.get(Integer.valueOf(((c)a.get(paramString2)).b()))).b((c)a.get(paramString2));
+	      }
+	      paramString2 = (c)a.get(paramString2);
+	      paramInt = (b)b.get(Integer.valueOf(paramInt));
+	      a.get(paramString1);
+	      paramString2 = paramInt;
+	      (paramString1 = paramString2).a(paramString2.a());
+	      paramString2.a(paramString1);
+	      bool = true;
+	    }
+	    return bool;
+	  }
+	 
+	  public final String[] usersToString()
+	  {
+	    String[] arrayOfString = new String[a.size()];
+	    int i = 0;
+	    Iterator localIterator = a.values().iterator();
+	    while (localIterator.hasNext())
+	    {
+	      e localE = (e)localIterator.next();
+	      arrayOfString[i] = localE.toString();
+	      i++;
+	    }
+	    return arrayOfString;
+	  }
 }
