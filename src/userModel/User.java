@@ -6,6 +6,14 @@ public class User {
 	protected String pwd;
 	protected String login;
 	
+	public User(String login, String firstname, String surname, String pwd)
+	  {
+	    this.login = login;
+	    this.firstname = firstname;
+	    this.surname = surname;
+	    this.pwd = pwd;
+	  }
+	
 	public void ViewTimeTable() {
 		
 	}
@@ -22,10 +30,9 @@ public class User {
 		return this.pwd;
 	}
 	
-	public String login() {
+	public String getlogin() {
 		return this.login;
 	}
-	
 	public String setfirstname() {
 		return this.firstname;
 	}
@@ -38,7 +45,7 @@ public class User {
 		return this.pwd;
 	}
 	
-	public String login() {
+	public String setlogin() {
 		return this.login;
 	}
 	

@@ -1,6 +1,6 @@
 package userController;
+import userModel.*;
 
-import userModel.UserDB;
 import org.jdom2.input.*;
 import org.jdom2.output.Format;
 import org.jdom2.output.XMLOutputter;
@@ -154,42 +154,24 @@ public class UserController implements IUserController {
 	public boolean addAdmin(String adminLogin, String newAdminlogin, int adminID, String firstname, String surname,
 			String pwd) {
 		// TODO Auto-generated method stub
-		Boolean OpenDB = this.loadDB();
-		Element rootElt;
-
-		if (OpenDB) {
-			rootElt = document.getRootElement();
-			Element admElt = rootElt.getChild("Administrators");
-			List<Element> admElts = admElt.getChildren("Administrator");
-			Iterator<Element> itadmElts = admElts.iterator();
-			List<String> list = new ArrayList<String>();
+		Boolean OpenDB = this.userDB.loadDB();
+		Administrator constructeur =null;
+		Boolean save = false;
+        if (OpenDB) {
+			List<Administrator> admElts = this.userDB.Administrators;
+			Iterator<Administrator> itadmElts = admElts.iterator();
+			List<String>   admlogin = new ArrayList<String>();
 			while (itadmElts.hasNext()) {
-				Element unadmElt = (Element) itadmElts.next();
-				list.add(unadmElt.getChildText("login"));
+				Administrator unadmElt = (Administrator) itadmElts.next();
+				admlogin.add(unadmElt.getlogin());
+				if(unadmElt.getlogin() == adminLogin) {constructeur = unadmElt;}
 			}
 
-			if (list.contains(adminLogin) && !list.contains(newAdminlogin)) {
-				Element admin = new Element("Administrator");
-				Element login = new Element("login");
-				login.setText(newAdminlogin);
-				Element fname = new Element("firstname");
-				fname.setText(firstname);
-				Element sname = new Element("surname");
-				sname.setText(surname);
-				Element admpwd = new Element("pwd");
-				admpwd.setText(pwd);
-				Element adminId = new Element("adminId");
-				adminId.setText(String.valueOf(adminID));
-				admin.addContent(login);
-				admin.addContent(fname);
-				admin.addContent(sname);
-				admin.addContent(admpwd);
-				admin.addContent(adminId);
-				admElt.addContent(admin);
-				rootElt.addContent(admElt);
+			if (constructeur!=null && !admlogin.contains(newAdminlogin)) {
+				save = constructeur.Addadmin(this.userDB,adminLogin, newAdminlogin,adminID, firstname,surname,pwd);
 			}
 		}
-		return this.saveDB();
+		return save;
 	}
 
 	@Override
@@ -352,7 +334,7 @@ public class UserController implements IUserController {
 		return null;
 	}
 
-	@Override
+	/*@Override
 	public boolean loadDB() {
 		// TODO Auto-generated method stub
 		SAXBuilder sxb = new SAXBuilder();
@@ -379,10 +361,10 @@ public class UserController implements IUserController {
 			return true;
 		else
 			return false;
-	}
-
+	}*/
+	
 	public UserDB getUserDB() {
-		return userDB;
+		return this.userDB;
 	}
 
 	public void setUserDB(UserDB userDB) {

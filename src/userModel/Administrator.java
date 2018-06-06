@@ -4,25 +4,36 @@ import org.jdom2.Element;
 
 public class Administrator extends User{
 	protected int administratorId;
-	
-	public boolean Addmin(UserDB userDB, String adminLogin, String newAdminlogin,int adminID, String firstname, String surname, String pwd) {
-		  
+	public Administrator(String adminLogin, int adminID, String firstname, String surname, String pwd) {
+		super(adminLogin,firstname,surname,pwd);
+		this.administratorId = adminID;	
+	}
+	public boolean Addadmin(UserDB userDB, String adminLogin, String newAdminlogin,int adminID, String firstname, String surname, String pwd) {
+	  //  userDB.loadDB();
+		Element rootElt = userDB.document.getRootElement();
 		Element admins = new Element("Administrators");
 		   Element admin = new Element("Administrator");
 		     Element login = new Element("login");
-		     login.setText("su");
+		     login.setText(adminLogin);
 		     Element fname = new Element("firstname");
-		     fname.setText("su");
+		     fname.setText(adminLogin);
 		     Element sname = new Element("surname");
-		     sname.setText("su");
-		     Element pwd = new Element("pwd");
-		     pwd.setText("superUser");
+		     sname.setText(surname);
+		     Element admpwd = new Element("pwd");
+		     admpwd.setText(pwd);
 		     Element adminId = new Element("adminId");
-		     adminId.setText("0");
+		     adminId.setText(String.valueOf(adminID));
 		    admin.addContent(login);admin.addContent(fname);admin.addContent(sname);admin.addContent(pwd); admin.addContent(adminId); 
 		   admins.addContent(admin); 
 		  rootElt.addContent(admins);
-		return false;
+		 Administrator newadmin = new Administrator();
+		 newadmin.firstname = firstname;
+		 newadmin.login = newAdminlogin;
+		 newadmin.pwd = pwd;
+		 newadmin.surname = surname;
+		 newadmin.administratorId = adminID;
+		 userDB.Administrators.add(newadmin);
+;		return userDB.saveDB();
 	}
 	
 	public boolean AddStudent(UserDB userDB,String adminLogin, String newStudentLogin,int studentID, String firstname, String surname, String pwd) {
